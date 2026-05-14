@@ -1,0 +1,38 @@
+{
+  "project_name": "Branquelas Event Promotion Site",
+  "timeline": "asap",
+  "media_status": "partial",
+  "hosting": "localhost",
+  "phases": [
+    {
+      "id": 1,
+      "name": "MVP - Foundation & Launch",
+      "priority": "high",
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "name": "Media & Enhancement",
+      "priority": "medium",
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "name": "Production & Deployment",
+      "priority": "medium",
+      "status": "pending"
+    }
+  ],
+  "tech_stack": {
+    "frontend": "HTML5, CSS3, JavaScript (vanilla)",
+    "backend": "Node.js + Express (opcional para Phase 1)",
+    "email": "nodemailer ou SendGrid",
+    "hosting": "Vercel/Netlify (produção)"
+  },
+  "security": {
+    "validation": true,
+    "rate_limiting": true,
+    "csrf_tokens": true,
+    "https_ready": true
+  }
+}
