@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /.git/
+
+Sitemap: /sitemap.xml
+
+# Crawl-delay in seconds
+Crawl-delay: 1

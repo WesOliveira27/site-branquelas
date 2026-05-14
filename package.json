@@ -1,0 +1,29 @@
+{
+  "name": "branquelas-site",
+  "version": "1.0.0",
+  "description": "Site de promoção para animadores de eventos As Branquelas",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["branquelas", "eventos", "animação"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.7",
+    "validator": "^13.11.0",
+    "compression": "^1.7.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0"
+  }
+}
