@@ -1,5 +1,23 @@
 # 📊 Status do Projeto - As Branquelas Site
 
+## 🟡 FASE 1.5 - ENHANCEMENTS (COMPLETADA)
+
+**Data:** 2026-05-14  
+**Status:** ✅ MELHORIAS APLICADAS  
+
+### Enhancements Implementados
+
+| Item | Status | Detalhes |
+|------|--------|----------|
+| **Seção "O Processo"** | ✅ | 4 steps com numeração visual |
+| **Testimonials** | ✅ | Prova social com avaliações 5 estrelas |
+| **CTA Banner** | ✅ | Banner destacado entre seções |
+| **Variáveis CSS** | ✅ | --transition, --secondary definidas |
+| **Responsive Mobile** | ✅ | Adaptações 480px |
+| **Vídeo Hero** | ✅ | branquelas.mp4 (90MB) adicionado |
+
+---
+
 ## 🟢 FASE 1 (MVP) - COMPLETA
 
 **Iniciado:** 2026-05-13  
