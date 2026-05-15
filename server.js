@@ -13,6 +13,17 @@ import validator from 'validator';
 // Load environment variables
 dotenv.config();
 
+// Validate required environment variables in production
+if (process.env.NODE_ENV === 'production') {
+    const requiredEnvVars = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'CONTACT_EMAIL'];
+    const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+    
+    if (missingEnvVars.length > 0) {
+        console.warn(`[WARNING] Missing environment variables: ${missingEnvVars.join(', ')}`);
+        console.warn('[WARNING] Email functionality may not work properly');
+    }
+}
+
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -122,15 +133,25 @@ function validateContactForm(data) {
     }
 
     // Phone validation (optional, but validate if provided)
-    if (data.phone && !validator.isMobilePhone(data.phone, 'pt-BR', { strictMode: false })) {
-        errors.phone = 'Telefone inválido';
+    if (data.phone) {
+        // Accept both Brazilian format and generic phone format
+        const phoneRegex = /^[0-9\s\-\(\)\+]*$/;
+        if (!phoneRegex.test(data.phone)) {
+            errors.phone = 'Telefone inválido';
+        } else if (data.phone.replace(/\D/g, '').length < 10) {
+            errors.phone = 'Telefone deve ter no mínimo 10 dígitos';
+        }
     }
 
     // Date validation (optional)
     if (data.eventDate) {
         const date = new Date(data.eventDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         if (isNaN(date.getTime())) {
             errors.eventDate = 'Data inválida';
+        } else if (date < today) {
+            errors.eventDate = 'Data deve ser no futuro';
         }
     }
 

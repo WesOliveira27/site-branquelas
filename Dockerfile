@@ -11,7 +11,10 @@ RUN npm ci --only=production
 # Copy application files
 COPY public/ ./public/
 COPY server.js .
-COPY .env.example .env
+COPY .env.example ./.env.example
+
+# Note: .env file should be provided at runtime via environment variables
+# or mounted as a volume, not committed to the image
 
 # Expose port
 EXPOSE 3000

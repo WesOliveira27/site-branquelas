@@ -120,6 +120,20 @@ function validateForm(data) {
         isValid = false;
     }
 
+    // Event date validation (optional, but validate if provided)
+    if (data.eventDate) {
+        const eventDate = new Date(data.eventDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (isNaN(eventDate.getTime())) {
+            errors.eventDate = 'Data inválida';
+            isValid = false;
+        } else if (eventDate < today) {
+            errors.eventDate = 'Data deve ser no futuro';
+            isValid = false;
+        }
+    }
+
     // Display errors
     for (const [field, message] of Object.entries(errors)) {
         const errorElement = document.getElementById(`${field}Error`);
@@ -193,34 +207,66 @@ async function submitForm(data) {
     }
 }
 
-// Real-time input validation
-document.getElementById('name')?.addEventListener('blur', function() {
-    if (this.value && this.value.length < 3) {
-        this.classList.add('error');
-        document.getElementById('nameError').textContent = 'Mínimo 3 caracteres';
-    } else {
-        this.classList.remove('error');
-        document.getElementById('nameError').textContent = '';
+// Real-time input validation with centralized rules
+const validationRules = {
+    name: {
+        element: document.getElementById('name'),
+        errorElement: document.getElementById('nameError'),
+        validate: (value) => {
+            if (!value) return null;
+            if (value.length < 3) return 'Mínimo 3 caracteres';
+            if (value.length > 100) return 'Máximo 100 caracteres';
+            if (!/^[a-zA-ZÀ-ÿ\s'-]+$/.test(value)) return 'Caracteres inválidos';
+            return null;
+        }
+    },
+    email: {
+        element: document.getElementById('email'),
+        errorElement: document.getElementById('emailError'),
+        validate: (value) => {
+            if (!value) return null;
+            if (!isValidEmail(value)) return 'Email inválido';
+            return null;
+        }
+    },
+    message: {
+        element: document.getElementById('message'),
+        errorElement: document.getElementById('messageError'),
+        validate: (value) => {
+            if (!value) return null;
+            if (value.length < 10) return 'Mínimo 10 caracteres';
+            if (value.length > 1000) return 'Máximo 1000 caracteres';
+            return null;
+        }
+    },
+    eventDate: {
+        element: document.getElementById('eventDate'),
+        errorElement: document.getElementById('eventDateError'),
+        validate: (value) => {
+            if (!value) return null;
+            const date = new Date(value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (isNaN(date.getTime())) return 'Data inválida';
+            if (date < today) return 'Data deve ser no futuro';
+            return null;
+        }
     }
-});
+};
 
-document.getElementById('email')?.addEventListener('blur', function() {
-    if (this.value && !isValidEmail(this.value)) {
-        this.classList.add('error');
-        document.getElementById('emailError').textContent = 'Email inválido';
-    } else {
-        this.classList.remove('error');
-        document.getElementById('emailError').textContent = '';
-    }
-});
-
-document.getElementById('message')?.addEventListener('blur', function() {
-    if (this.value && this.value.length < 10) {
-        this.classList.add('error');
-        document.getElementById('messageError').textContent = 'Mínimo 10 caracteres';
-    } else {
-        this.classList.remove('error');
-        document.getElementById('messageError').textContent = '';
+// Attach real-time validation listeners
+Object.entries(validationRules).forEach(([fieldName, rule]) => {
+    if (rule.element) {
+        rule.element.addEventListener('blur', function() {
+            const errorMsg = rule.validate(this.value);
+            if (errorMsg) {
+                this.classList.add('error');
+                rule.errorElement.textContent = errorMsg;
+            } else {
+                this.classList.remove('error');
+                rule.errorElement.textContent = '';
+            }
+        });
     }
 });
 

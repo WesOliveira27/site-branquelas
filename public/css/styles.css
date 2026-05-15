@@ -783,11 +783,6 @@ body {
     }
 }
 
-/* Main content top padding */
-main {
-    padding-top: 70px;
-}
-
 /* Responsive Typography */
 @media (max-width: 768px) {
     .hero-title {
