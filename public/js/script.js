@@ -25,6 +25,104 @@ function scrollToContact() {
     }
 }
 
+// ===== CAROUSEL FUNCTIONALITY =====
+class Carousel {
+    constructor() {
+        this.track = document.getElementById('carouselTrack');
+        this.slides = document.querySelectorAll('.carousel-slide');
+        this.indicators = document.querySelectorAll('.indicator');
+        this.prevButton = document.getElementById('carouselPrev');
+        this.nextButton = document.getElementById('carouselNext');
+        this.currentIndex = 0;
+        this.slideCount = this.slides.length;
+        this.autoPlayInterval = null;
+        this.autoPlayDelay = 5000; // 5 seconds
+
+        if (this.track && this.slides.length > 0) {
+            this.init();
+        }
+    }
+
+    init() {
+        // Event listeners for buttons
+        if (this.prevButton) {
+            this.prevButton.addEventListener('click', () => this.prevSlide());
+        }
+        if (this.nextButton) {
+            this.nextButton.addEventListener('click', () => this.nextSlide());
+        }
+
+        // Event listeners for indicators
+        this.indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => this.goToSlide(index));
+        });
+
+        // Auto-play carousel
+        this.startAutoPlay();
+
+        // Pause on hover
+        this.track.addEventListener('mouseenter', () => this.stopAutoPlay());
+        this.track.addEventListener('mouseleave', () => this.startAutoPlay());
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prevSlide();
+            if (e.key === 'ArrowRight') this.nextSlide();
+        });
+    }
+
+    updateCarousel() {
+        // Update track position
+        const offset = -this.currentIndex * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+
+        // Update indicators
+        this.indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === this.currentIndex);
+        });
+    }
+
+    nextSlide() {
+        this.currentIndex = (this.currentIndex + 1) % this.slideCount;
+        this.updateCarousel();
+        this.resetAutoPlay();
+    }
+
+    prevSlide() {
+        this.currentIndex = (this.currentIndex - 1 + this.slideCount) % this.slideCount;
+        this.updateCarousel();
+        this.resetAutoPlay();
+    }
+
+    goToSlide(index) {
+        this.currentIndex = index;
+        this.updateCarousel();
+        this.resetAutoPlay();
+    }
+
+    startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), this.autoPlayDelay);
+    }
+
+    stopAutoPlay() {
+        clearInterval(this.autoPlayInterval);
+    }
+
+    resetAutoPlay() {
+        this.stopAutoPlay();
+        this.startAutoPlay();
+    }
+}
+
+// Initialize carousel when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new Carousel();
+    });
+} else {
+    new Carousel();
+}
+
 // Form Validation and Submission
 const contactForm = document.getElementById('contactForm');
 

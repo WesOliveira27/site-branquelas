@@ -166,18 +166,40 @@
     <section class="gallery">
         <div class="container">
             <h2 class="section-title">Galeria de Apresentações</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="/assets/images/img1.jpeg" alt="Apresentação 1" class="gallery-img">
+            
+            <!-- Carousel Wrapper -->
+            <div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="/assets/images/img1.jpeg" alt="Apresentação 1" class="carousel-img">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="/assets/images/img2.jpeg" alt="Apresentação 2" class="carousel-img">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="/assets/images/img3.jpeg" alt="Apresentação 3" class="carousel-img">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="/assets/images/img4.jpeg" alt="Apresentação 4" class="carousel-img">
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <button class="carousel-button carousel-prev" id="carouselPrev" aria-label="Slide anterior">
+                        <span>❮</span>
+                    </button>
+                    <button class="carousel-button carousel-next" id="carouselNext" aria-label="Próximo slide">
+                        <span>❯</span>
+                    </button>
                 </div>
-                <div class="gallery-item">
-                    <img src="/assets/images/img2.jpeg" alt="Apresentação 2" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="/assets/images/img3.jpeg" alt="Apresentação 3" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="/assets/images/img4.jpeg" alt="Apresentação 4" class="gallery-img">
+
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators" id="carouselIndicators">
+                    <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+                    <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+                    <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
+                    <button class="indicator" data-slide="3" aria-label="Slide 4"></button>
                 </div>
             </div>
         </div>
