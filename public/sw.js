@@ -1,11 +1,20 @@
-const CACHE_NAME = 'branquelas-v2';
+const CACHE_NAME = 'branquelas-v6';
 const urlsToCache = [
   '/',
   '/css/styles.css',
   '/js/script.js',
   '/index.html',
   '/sitemap.xml',
-  '/robots.txt'
+  '/robots.txt',
+  '/assets/images/img1.jpeg',
+  '/assets/images/img2.jpeg',
+  '/assets/images/img3.jpeg',
+  '/assets/images/img4.jpeg',
+  '/assets/images/aniversario.jpg',
+  '/assets/images/casamento.jpg',
+  '/assets/images/confraternização.jpg',
+  '/assets/images/Eventos-Corporativos.jpg',
+  '/assets/videos/branquelas.mp4'
 ];
 
 self.addEventListener('install', event => {

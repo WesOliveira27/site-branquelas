@@ -348,12 +348,57 @@ body {
     padding: 2.5rem 2rem;
     border: 1px solid var(--border);
     transition: var(--transition);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.4) 0%, rgba(18, 18, 18, 0.2) 100%);
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.service-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.service-card[data-service="aniversario"] {
+    background-image: url('/assets/images/aniversario.jpg');
+}
+
+.service-card[data-service="casamento"] {
+    background-image: url('/assets/images/casamento.jpg');
+}
+
+.service-card[data-service="confraternizacao"] {
+    background-image: url('/assets/images/confraternizacao.jpg');
+}
+
+.service-card[data-service="corporativo"] {
+    background-image: url('/assets/images/Eventos-Corporativos.jpg');
+}
+
+.service-card:hover::before {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.6) 0%, rgba(18, 18, 18, 0.4) 100%);
 }
 
 .service-card:hover {
-    background-color: var(--darker);
     border-color: var(--red);
-    box-shadow: 0 8px 24px rgba(220, 20, 60, 0.15);
+    box-shadow: 0 8px 24px rgba(220, 20, 60, 0.25), inset 0 0 40px rgba(220, 20, 60, 0.1);
+    transform: translateY(-4px);
 }
 
 .service-icon {
