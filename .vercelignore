@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+MEDIA-GUIDE.md
+QUICKSTART.md
+README.md
+STATUS.md
+
+# Planning
+.planning/
+
+# Development
+.env.local
+.env.development
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+*.log
+.DS_Store
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Scripts
+scripts/
+setup.sh
+
+# Old assets (videos not needed on production)
+assets/
+video/
+
+# Source code (not needed in production)
+src/
