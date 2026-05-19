@@ -5,7 +5,7 @@ import rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import validator from 'validator';
@@ -38,11 +38,12 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
             styleSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", 'data:', 'https:'],
-            mediaSrc: ["'self'"],
+            mediaSrc: ["'self'", 'blob:'],
             connectSrc: ["'self'"],
+            fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
         },
     },
     frameguard: { action: 'deny' },
@@ -165,8 +166,46 @@ app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve static files
-app.use(express.static(join(__dirname, 'public')));
+// Debug endpoint (remove in production)
+app.get('/debug/assets', (req, res) => {
+    const publicPath = join(__dirname, 'public');
+    const assetsPath = join(publicPath, 'assets');
+    
+    try {
+        const imagesPath = join(assetsPath, 'images');
+        const videosPath = join(assetsPath, 'videos');
+        
+        const images = readdirSync(imagesPath).filter(f => !f.startsWith('.'));
+        const videos = readdirSync(videosPath).filter(f => !f.startsWith('.'));
+        
+        res.json({
+            __dirname,
+            publicPath,
+            assetsPath,
+            images,
+            videos,
+            status: 'ok'
+        });
+    } catch (error) {
+        res.status(500).json({ 
+            error: error.message,
+            __dirname,
+            publicPath: join(__dirname, 'public')
+        });
+    }
+});
+
+// Serve static files with explicit cache headers
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'public, max-age=3600');
+    next();
+});
+
+app.use(express.static(join(__dirname, 'public'), {
+    maxAge: '1h',
+    etag: false,
+    dotfiles: 'deny'
+}));
 
 // Contact form submission
 app.post('/api/contact', contactLimiter, async (req, res) => {
