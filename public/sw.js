@@ -1,4 +1,4 @@
-const CACHE_NAME = 'branquelas-v7';
+const CACHE_NAME = 'branquelas-v8';
 const urlsToCache = [
   '/',
   '/css/styles.css',
@@ -12,7 +12,7 @@ const urlsToCache = [
   '/assets/images/img4.jpeg',
   '/assets/images/aniversario.jpg',
   '/assets/images/casamento.jpg',
-  '/assets/images/confraternização.jpg',
+  '/assets/images/confraternizacao.jpg',
   '/assets/images/Eventos-Corporativos.jpg',
   '/assets/videos/branquelas.mp4'
 ];
