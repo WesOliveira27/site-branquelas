@@ -31,9 +31,5 @@ Dockerfile
 scripts/
 setup.sh
 
-# Old assets (videos not needed on production)
-assets/
-video/
-
 # Source code (not needed in production)
 src/
