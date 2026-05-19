@@ -2,21 +2,5 @@
   "version": 2,
   "env": {
     "NODE_ENV": "production"
-  },
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/health",
-      "dest": "server.js"
-    }
-  ]
+  }
 }

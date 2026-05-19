@@ -1,4 +1,4 @@
-const CACHE_NAME = 'branquelas-v9';
+const CACHE_NAME = 'branquelas-v10';
 const urlsToCache = [
   '/',
   '/css/styles.css',
