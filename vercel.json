@@ -15,10 +15,5 @@
       "dest": "server.js"
     }
   ],
-  "public": "public",
-  "functions": {
-    "server.js": {
-      "maxDuration": 60
-    }
-  }
+  "public": "public"
 }
