@@ -28,6 +28,12 @@ Thumbs.db
 dist/
 build/
 .next/
+
+# Large media files (manage separately or use Git LFS)
+video/
+assets/
+public/assets/videos/
+public/assets/images/
 out/
 
 # Logs
